@@ -1,0 +1,8 @@
+---
+- name: 모든 ansible에 epel-release 설치
+  hosts: all
+  tasks:
+  - name: 패키지 설치
+    yum:
+      name: epel-release
+      state: latest

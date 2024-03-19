@@ -1,0 +1,25 @@
+---
+- name: MariaDB server is down
+  # yum install mariadb-server
+  # systemctl enable --now mariadb
+  hosts: all
+  vars:
+    mariadb_packages:
+      - mariadb-server
+      - python3-PyMySQL
+
+  tasks:
+    - name: Stop MariaDB service
+      service:
+        name: mariadb
+        state: stopped
+        enabled: no
+
+    - name: MariaDB package are uninstalled
+      yum:
+        name: "{{ item }}"
+        state: absent
+      loop: "{{ mariadb_packages }}"
+      when: ansible_distribution == 'CentOS'
+
+

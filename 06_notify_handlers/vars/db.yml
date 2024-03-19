@@ -1,0 +1,4 @@
+pkg_db:
+  - mariadb-server
+  - python3-PyMySQL
+  - python3-pip

@@ -1,0 +1,22 @@
+---
+# 1) 방화벽 서비스 OFF
+#
+#
+#
+- name : 웹 서버 구성 및 DB 서버 구성
+  hosts: web1
+  tasks:
+#   * [v]웹 패키지 설치: httpd, mod_ssl
+    - name: 웹 패키지 설치 - WEB + PHP + DB
+      yum:
+        name:
+          - httpd
+          - mod_ssl
+          - php
+          - php-mysqlnd
+          - php-pdo
+          - mariadb-server
+          - mariadb
+          - python3-pip
+          - firewalld
+        state: absent

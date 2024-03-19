@@ -1,0 +1,20 @@
+---
+- name: unInstall database packages
+  yum: 
+    name: "{{ item }}"
+    state: absent
+  with_items: "{{ db_packages }}"
+  tags:
+    - dev
+  notify:
+    - stop_db
+
+- name: Install database packages
+  yum: 
+    name: "{{ item }}"
+    state: latest
+  with_items: "{{ db_packages }}"
+  tags:
+    - dev
+  notify:
+    - start_db

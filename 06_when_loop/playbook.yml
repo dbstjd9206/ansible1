@@ -1,0 +1,32 @@
+---
+- name: MariaDB server is running
+  # yum install mariadb-server
+  # systemctl enable --now mariadb
+  hosts: database_prod
+  vars:
+    mariadb_packages:
+      - mariadb-server
+      - python3-PyMySQL
+
+  tasks:
+    - name: MariaDB package are installed
+      yum:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ mariadb_packages }}"
+      #when: ansible_distribution == 'CentOS'
+      when: ansible_distribution == 'RedHat'
+
+    - name: Start MariaDB service
+      service:
+        name: mariadb
+        state: started
+        enabled: true
+#     이게더 빠르다.
+#     yum:
+#       name: "{{ pkg_db }}"
+#       state: latest
+#     vars:
+#        pkg_db:
+#          - mariadb-server
+#          - python3-PyMySQL
